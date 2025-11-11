@@ -31,6 +31,7 @@
   border-radius: 6px;
   padding: 6px 12px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .add-btn:hover {
@@ -69,16 +70,28 @@ button {
 .btn-view {
   background-color: #28a745;
   color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+  padding: 5px 10px;
+  
 }
 
 .btn-edit {
   background-color: #ffc107;
   color: black;
+  border-radius: 5px;
+  text-decoration: none;
+  size: 5px;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 5px;
 }
 
 .btn-delete {
   background-color: #dc3545;
   color: white;
+    padding: 6px 10px;
 }
 
 .btn-view:hover,

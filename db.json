@@ -1,16 +1,10 @@
 {
   "students": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Najath",
       "place": "Vellur",
       "phone": "9876543210"
-    },
-    {
-      "id": 2,
-      "name": "Rahul",
-      "place": "Nilambur",
-      "phone": "9123456789"
     }
   ]
 }
