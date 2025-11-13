@@ -1,35 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import "./Home.css";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Home() {
-  const [Students, setStudents] = useState([])
+  const [students, setStudents] = useState([])
 
-  async function loadData() {
-    try {
-      const response = await fetch("http://localhost:5000/students")
-      const data = await response.json()
-      setStudents(data)
-    } catch (error) {
-      console.log(error)
-    }
+  function loadData() {
+    axios.get("http://localhost:5000/students")
+      .then((res) => setStudents(res.data))
+      .catch((err) => console.log(err));
   }
   useEffect(() => {
     loadData();
   }, [])
 
-  async function handleDelete(id) {
-    if (window.confirm("ARE YOU SURE")) {
-      try {
-        await fetch(`http://localhost:5000/students/${id}`, {
-          method: "DELETE",
-        });
-        loadData()
-      } catch (error) {
-        console.log(error)
-      }
+  function handleDelete(id) {
+    if (window.confirm("are ou sure")) {
+      axios.delete(`http://localhost:5000/students/${id}`, {
+        method: "DELETE",
+      }).then(() => {loadData()})
     }
-  };
+  }
+
 
   return (
     <div className="the-table">
@@ -47,7 +40,7 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {Students.map((stu) => (
+            {students.map((stu) => (
               <tr key={stu.id}>
                 <td>{stu.id}</td>
                 <td>{stu.name}</td>
