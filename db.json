@@ -13,16 +13,10 @@
       "phone": "5554894985"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "suarez",
       "place": "urugey",
       "phone": "8456131"
-    },
-    {
-      "id": 4,
-      "name": "fgdg",
-      "place": "fgdfg",
-      "phone": "dfgf"
     }
   ]
 }
