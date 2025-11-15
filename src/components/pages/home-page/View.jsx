@@ -23,13 +23,14 @@ export default function View() {
   },[id])
 
   return (
-    <div>
-      <h1>Students Details</h1>
-      Name : {name}
-      place : {place}
-      phone : {phone}
-      <button
-       onClick={()=> navigate("/home")}>BACK</button>
-    </div>
-  )
+  <div>
+    <h1 className="mt-5">Students Details</h1>
+    Name : {name}<br/>
+    place : {place}<br/>
+    phone : {phone}<br/>
+    <button className="btn-lg"
+     onClick={()=> navigate("/home")}>BACK</button>
+  </div>
+)
+
 }

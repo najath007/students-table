@@ -1,38 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import "./Home.css";
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Home() {
-  const [students, setStudents] = useState([])
+  const [students, setStudents] = useState([]);
 
-  function loadData() {
-    axios.get("http://localhost:5000/students")
-      .then((res) => setStudents(res.data))
-      .catch((err) => console.log(err));
-  }
   useEffect(() => {
-    loadData();
-  }, [])
+    fetch("http://localhost:5000/students")
+      .then(res => res.json())
+      .then(data => setStudents(data));
+  }, []);
 
-  function handleDelete(id) {
-    if (window.confirm("are ou sure")) {
-      axios.delete(`http://localhost:5000/students/${id}`, {
-        method: "DELETE",
-      }).then(() => {loadData()})
-    }
-  }
-
+  const handleDelete = (id) => {
+    fetch(`http://localhost:5000/students/${id}`, {
+      method: "DELETE",
+    })
+      .then(() => setStudents(students.filter(s => s.id !== id)));
+  };
 
   return (
-    <div className="the-table">
-      <h1>STUDENTS DETAILS</h1>
-      <div className="table-container">
-        <Link to="/add" className='add-btn'>Add student</Link>
-        <table>
-          <thead>
+    <div className="container mt-4">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h2>Students List</h2>
+        <Link to="/add" className="btn btn-primary">Add Student</Link>
+      </div>
+
+      <div className="table-responsive">
+        <table className="table table-bordered table-striped">
+          <thead className="table-dark">
             <tr>
-              <th>Id</th>
+              <th>ID</th>
               <th>Name</th>
               <th>Place</th>
               <th>Phone</th>
@@ -40,17 +36,21 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {students.map((stu) => (
-              <tr key={stu.id}>
-                <td>{stu.id}</td>
-                <td>{stu.name}</td>
-                <td>{stu.place}</td>
-                <td>{stu.phone}</td>
+            {students.map(s => (
+              <tr key={s.id}>
+                <td>{s.id}</td>
+                <td>{s.name}</td>
+                <td>{s.place}</td>
+                <td>{s.phone}</td>
                 <td>
-                  <Link to={`/view/${stu.id}`} className='btn-view'>View</Link>
-                  <Link to={`/edit/${stu.id}`} className='btn-edit'>Edit</ Link>
-
-                  <button onClick={() => handleDelete(stu.id)} className="btn-delete">Delete</button>
+                  <Link to={`/edit/${s.id}`} className="btn btn-warning btn-sm me-2">Edit</Link>
+                  <Link to={`/view/${s.id}`} className="btn btn-info btn-sm me-2">View</Link>
+                  <button 
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDelete(s.id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -58,6 +58,5 @@ export default function Home() {
         </table>
       </div>
     </div>
-
-  )
+  );
 }
